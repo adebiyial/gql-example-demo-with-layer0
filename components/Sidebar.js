@@ -16,9 +16,11 @@ const StyledSidebar = styled.div`
   top: 0;
   position: fixed;
   text-align: left;
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: 250px 1fr;
 
   .sidebar-header {
-    height: 250px;
     width: 100%;
     background-color: black;
     padding: 35px;
@@ -36,7 +38,6 @@ const StyledSidebar = styled.div`
 
   .sidebar-list {
     list-style: none;
-    min-height: 100vh;
   }
 
   .sidebar-list__item {
@@ -79,8 +80,8 @@ export default function Sidebar() {
       </header>
       <ul className="sidebar-list">
         {missions.map((mission) => (
-          <li className="sidebar-list__item">
-            <Link href="/" passHref>
+          <li className="sidebar-list__item" key={mission.id}>
+            <Link href={`/${mission.id}`} passHref>
               <a>
                 <figure>
                   <img

@@ -16,7 +16,7 @@ const GlobalStyle = createGlobalStyle`
 
   html,
 	body {
-	  font-family: "Inter", -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+	  font-family: "Sora", -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
 		  Helvetica Neue, Ubuntu, sans-serif;
 	  -webkit-font-smoothing: antialiased;
   }
