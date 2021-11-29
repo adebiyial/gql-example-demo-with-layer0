@@ -9,6 +9,5 @@ export default function Home() {
     <StyledHome>
      <h1>Home</h1>
     </StyledHome>
-
   )
 }
