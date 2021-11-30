@@ -1,7 +1,9 @@
+import { useQuery } from '@apollo/client';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
+import Loader from '../components/Loader';
 import StyledDashboard from '../components/StyledDashboard';
-import MissionDetail from '../public/mission.json';
+import { launchDetailsQuery } from '../lib/query';
 
 const StyledMissionDetails = styled(StyledDashboard)`
   .mission-details__header {
@@ -56,30 +58,60 @@ const StyledMissionDetails = styled(StyledDashboard)`
 
 export default function MissionDetails() {
   const router = useRouter();
-  const mission =
-    router.query['mission-id'] % 2 === 0 ? MissionDetail[0] : MissionDetail[1];
+  const missionId = router.query['mission-id'];
+
+  const {
+    loading,
+    error,
+    data = { launch: [] },
+  } = useQuery(launchDetailsQuery(missionId), {
+    fetchPolicy: 'network-only',
+    notifyOnNetworkStatusChange: true,
+  });
+
+  if (error) return <p>Error :(</p>;
+
+  const { launch: mission } = data;
+  // console.log(mission);
 
   return (
     <StyledMissionDetails>
-      <header className="mission-details__header">
-        <figure className="mission-figure">
-          <img src={mission.links.mission_patch} alt={mission.mission_name} />
-        </figure>
-        <div className="mission-copy">
-          <span className="mission-id">{mission.id}</span>
-          <h1 className="mission-name">{mission.mission_name}</h1>
-          <p className="mission-details">{mission.details}</p>
+      {loading ? (
+        <div className="loader-wrap">
+          <Loader />
         </div>
-      </header>
-      <ul className="mission-images__list">
-        {mission.links.flickr_images.map((imagesUrl) => (
-          <li className="mission-images__listItem" key={imagesUrl}>
-            <figure>
-              <img src={imagesUrl} alt={mission.mission_name} />
-            </figure>
-          </li>
-        ))}
-      </ul>
+      ) : (
+        <>
+          <header className="mission-details__header">
+            {mission.links && (
+              <figure className="mission-figure">
+                <img
+                  src={mission.links.mission_patch}
+                  alt={mission.mission_name}
+                />
+              </figure>
+            )}
+            <div className="mission-copy">
+              <span className="mission-id">{mission.id}</span>
+              <h1 className="mission-name">{mission.mission_name}</h1>
+              {mission.details && (
+                <p className="mission-details">{mission.details}</p>
+              )}
+            </div>
+          </header>
+          {mission.links && mission.links.flickr_images.length > 0 && (
+            <ul className="mission-images__list">
+              {mission.links.flickr_images.map((imagesUrl) => (
+                <li className="mission-images__listItem" key={imagesUrl}>
+                  <figure>
+                    <img src={imagesUrl} alt={mission.mission_name} />
+                  </figure>
+                </li>
+              ))}
+            </ul>
+          )}
+        </>
+      )}
     </StyledMissionDetails>
   );
 }

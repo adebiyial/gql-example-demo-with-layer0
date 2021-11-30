@@ -1,5 +1,5 @@
 {
-  "name": "gql",
+  "name": "graphql-caching-example",
   "private": true,
   "scripts": {
     "layer0:dev": "layer0 dev",

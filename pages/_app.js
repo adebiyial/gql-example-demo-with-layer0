@@ -1,5 +1,6 @@
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
-// import { useEffect } from 'react';
+import { useEffect } from 'react';
+import install from '@layer0/prefetch/window/install';
 import Sidebar from '../components/Sidebar';
 import GlobalStyle from '../components/GlobalStyle';
 
@@ -8,7 +9,7 @@ function MyApp({ Component, pageProps }) {
     cache: new InMemoryCache(),
     uri: '/graphql',
   });
-  // useEffect(() => install(), []);
+  useEffect(() => install(), []);
 
   return (
     <>
