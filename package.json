@@ -2,21 +2,26 @@
   "name": "gql",
   "private": true,
   "scripts": {
+    "layer0:dev": "layer0 dev",
+    "layer0:build": "layer0 build",
+    "layer0:deploy": "layer0 deploy",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
+    "@apollo/client": "^3.5.5",
     "babel-plugin-styled-components": "^2.0.2",
+    "graphql": "^16.0.1",
     "next": "12.0.4",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "styled-components": "^5.3.3"
   },
   "devDependencies": {
-    "eslint": "7",
     "babel-eslint": "^10.1.0",
+    "eslint": "7",
     "eslint-config-airbnb": "^18.2.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-config-wesbos": "1.0.1",
@@ -27,6 +32,12 @@
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-react": "^7.20.6",
     "eslint-plugin-react-hooks": "^4.1.2",
-    "prettier": "^2.1.1"
+    "prettier": "^2.1.1",
+    "@layer0/cli": "4.0.1-next-1632405384-b3d555c48.0",
+    "@layer0/core": "4.0.1-next-1632405384-b3d555c48.0",
+    "@layer0/devtools": "4.0.1-next-1632405384-b3d555c48.0",
+    "@layer0/next": "4.0.1-next-1632405384-b3d555c48.0",
+    "@layer0/prefetch": "4.0.1-next-1632405384-b3d555c48.0",
+    "@layer0/react": "4.0.1-next-1632405384-b3d555c48.0"
   }
 }

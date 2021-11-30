@@ -1,8 +1,7 @@
+import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import StyledDashboard from '../components/StyledDashboard';
 import MissionDetail from '../public/mission.json';
-
-const mission = MissionDetail[0];
 
 const StyledMissionDetails = styled(StyledDashboard)`
   .mission-details__header {
@@ -56,6 +55,10 @@ const StyledMissionDetails = styled(StyledDashboard)`
 `;
 
 export default function MissionDetails() {
+  const router = useRouter();
+  const mission =
+    router.query['mission-id'] % 2 === 0 ? MissionDetail[0] : MissionDetail[1];
+
   return (
     <StyledMissionDetails>
       <header className="mission-details__header">
@@ -70,7 +73,7 @@ export default function MissionDetails() {
       </header>
       <ul className="mission-images__list">
         {mission.links.flickr_images.map((imagesUrl) => (
-          <li className="mission-images__listItem">
+          <li className="mission-images__listItem" key={imagesUrl}>
             <figure>
               <img src={imagesUrl} alt={mission.mission_name} />
             </figure>
